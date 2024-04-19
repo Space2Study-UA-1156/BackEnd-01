@@ -1,0 +1,86 @@
+definitions:
+  reviews:
+    type: array
+    items:
+      type: object
+      properties:
+        _id:
+          type: string
+        comment:
+          type: string
+        rating:
+          type: number
+        author:
+          type: object
+          ref: '#/components/user'
+        targetUserId:
+          type: string
+          ref: '#components/user'
+        targetUserRole:
+          type: string
+        offer:
+          type: object
+          ref: '#components/offer'
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+  reviewResponse:
+    type: object
+    properties:
+      _id:
+        type: string
+      comment:
+        type: string
+      rating:
+        type: number
+      author:
+        type: object
+        ref: '#/components/user'
+      targetUserId:
+        type: string
+        ref: '#components/user'
+      targetUserRole:
+        type: string
+      offer:
+        type: object
+        ref: '#components/offer'
+      createdAt:
+        type: string
+        format: date-time
+      updatedAt:
+        type: string
+        format: date-time
+  review:
+    type: object
+    properties:
+      comment:
+        type: string
+      rating:
+        type: number
+      author:
+        type: object
+        ref: '#/components/user'
+      targetUserId:
+        type: string
+        ref: '#components/user'
+      targetUserRole:
+        type: string
+      offer:
+        type: object
+        ref: '#components/offer'
+      createdAt:
+        type: string
+        format: date-time
+      updatedAt:
+        type: string
+        format: date-time
+  update-review:
+    type: object
+    properties:
+      comment:
+        type: string
+      rating:
+        type: number

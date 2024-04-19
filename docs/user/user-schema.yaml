@@ -1,0 +1,210 @@
+definitions:
+  users:
+    type: array
+    items:
+      type: object
+      properties:
+        _id:
+          type: string
+        role:
+          type: array
+          items:
+            type: string
+            enum:
+              - student
+              - tutor
+        firstName:
+          type: string
+        lastName:
+          type: string
+        email:
+          type: string
+        categories:
+          type: array
+          $ref: '#/components/category'
+        totalReviews:
+          type: object
+          properties:
+            student:
+              type: number
+            tutor:
+              type: number
+        averageRating:
+          type: object
+          properties:
+            student:
+              type: number
+            tutor:
+              type: number
+        nativeLanguage:
+          type: string
+        address:
+          type: object
+          properties:
+            country:
+              type: string
+            city:
+              type: string
+        professionalSummary:
+          type: string
+        photo:
+          type: string
+        lastLogin:
+          type: string
+          format: date-time
+        status:
+          type: object
+          properties:
+            student:
+              type: string
+              enum:
+                - active
+                - blocked
+            tutor:
+              type: string
+              enum:
+                - active
+                - blocked
+            admin:
+              type: string
+              enum:
+                - active
+                - blocked
+        FAQ:
+          type: object
+          properties:
+            student:
+              type: array
+              items:
+                type: object
+                properties:
+                  question:
+                    type: string
+                  _id:
+                    type: string
+                  answer:
+                    type: string
+            tutor:
+              type: array
+              items:
+                type: object
+                properties:
+                  question:
+                    type: string
+                  _id:
+                    type: string
+                  answer:
+                    type: string
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+  user:
+    type: object
+    properties:
+      _id:
+        type: string
+      role:
+        type: array
+        items:
+          type: string
+          enum:
+            - student
+            - tutor
+      firstName:
+        type: string
+      lastName:
+        type: string
+      email:
+        type: string
+      categories:
+        type: array
+        $ref: '#/components/category'
+      totalReviews:
+        type: object
+        properties:
+          student:
+            type: number
+          tutor:
+            type: number
+      averageRating:
+        type: object
+        properties:
+          student:
+            type: number
+          tutor:
+            type: number
+      nativeLanguage:
+        type: string
+      address:
+        type: object
+        properties:
+          country:
+            type: string
+          city:
+            type: string
+      professionalSummary:
+        type: string
+      photo:
+        type: string
+      isEmailConfirmed:
+        type: boolean
+      isFirstLogin:
+        type: boolean
+      lastLogin:
+        type: string
+        format: date-time
+      status:
+        type: object
+        properties:
+          student:
+            type: string
+            enum:
+              - active
+              - blocked
+          tutor:
+            type: string
+            enum:
+              - active
+              - blocked
+          admin:
+            type: string
+            enum:
+              - active
+              - blocked
+      bookmarkedOffers:
+        type: array
+        $ref: '#/components/offer'
+      FAQ:
+        type: object
+        properties:
+          student:
+            type: array
+            items:
+              type: object
+              properties:
+                question:
+                  type: string
+                _id:
+                  type: string
+                answer:
+                  type: string
+          tutor:
+            type: array
+            items:
+              type: object
+              properties:
+                question:
+                  type: string
+                _id:
+                  type: string
+                answer:
+                  type: string
+      createdAt:
+        type: string
+        format: date-time
+      updatedAt:
+        type: string
+        format: date-time

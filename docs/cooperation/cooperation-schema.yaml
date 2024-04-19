@@ -1,0 +1,99 @@
+definitions:
+  cooperations:
+    type: array
+    items:
+      type: object
+      properties:
+        _id:
+          type: string
+        offer:
+          type: string
+          ref: '#components/offer'
+        initiator:
+          type: string
+          ref: '#/components/user'
+        initiatorRole:
+          type: string
+        receiver:
+          type: string
+          ref: '#components/user'
+        receiverRole:
+          type: string
+        price:
+          type: number
+        status:
+          type: string
+          enum:
+            - pending
+            - active
+            - declined
+            - closed
+        needAction:
+          type: string
+          enum:
+            - student
+            - tutor
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+  cooperationBody:
+    type: object
+    properties:
+      offer:
+        type: string
+        ref: '#components/offer'
+      receiver:
+        type: string
+        ref: '#components/user'
+      receiverRole:
+        type: string
+      price:
+        type: number
+      status:
+        type: string
+        enum:
+          - pending
+          - active
+          - declined
+          - closed
+  cooperation:
+    type: object
+    properties:
+      _id:
+        type: string
+      offer:
+        type: string
+        ref: '#components/offer'
+      initiator:
+        type: string
+        ref: '#/components/user'
+      initiatorRole:
+        type: string
+      receiver:
+        type: string
+        ref: '#components/user'
+      receiverRole:
+        type: string
+      price:
+        type: number
+      status:
+        type: string
+        enum:
+          - pending
+          - active
+          - declined
+          - closed
+      needAction:
+        type: string
+        enum:
+          - student
+          - tutor
+      createdAt:
+        type: string
+        format: date-time
+      updatedAt:
+        type: string
+        format: date-time

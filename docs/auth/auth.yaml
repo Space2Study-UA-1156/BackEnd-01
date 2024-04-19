@@ -1,0 +1,266 @@
+paths:
+  /auth/signup:
+    post:
+      tags:
+        - Auth
+      summary: User registration
+      description: Creates a new user, sends an email to the user and returns user ID and email.
+      produces:
+        - application/json
+      requestBody:
+        required: true
+        description: Provide required data to create a user account.
+        content:
+          application/json:
+            schema:
+              $ref: '#/definitions/signup'
+            example:
+              role: student
+              firstName: John
+              lastName: Doe
+              email: johndoe@gmail.com
+              password: qwer1234
+      responses:
+        201:
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/definitions/signupResponse'
+              example:
+                userId: 6255bc080a75adf9223df100
+                userEmail: johndoe@gmail.com
+        400:
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/Error'
+              example:
+                status: 400
+                code: 'EMAIL_NOT_SENT'
+                message: 'Email has not been sent.'
+        409:
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/Error'
+              example:
+                status: 409
+                code: 'ALREADY_REGISTERED'
+                message: 'User with specified email already exists.'
+  /auth/login:
+    post:
+      tags:
+        - Auth
+      summary: User authentication
+      description: Authenticates a user, returns an access token and sets cookie with a refresh token.
+      produces:
+        - application/json
+      requestBody:
+        required: true
+        description: Provide required data to log in.
+        content:
+          application/json:
+            schema:
+              $ref: '#/definitions/login'
+            example:
+              email: johndoe@gmail.com
+              password: qwer1234
+      responses:
+        200:
+          description: OK
+          headers:
+            Set-Cookie:
+              schema:
+                type: string
+                example: refreshToken=eyJhbGciOiJIUzI1NiIsInRI.0IiwiaXNatalXJzdExvZ2A5Mjg4ODMsImV4cCI6MWomanzMjQ4M30.gn_hJqB9zVi5Ux5oRu22hGQ9W4z2njkdnx4O; Max-Age=86400; Domain=s2s-back-stage.azurewebsites.net; Path=/; Expires=Sat, 20 Aug 2022 17:32:57 GMT; HttpOnly; Secure; SameSite=None
+          content:
+            application/json:
+              schema:
+                $ref: '#/definitions/accessToken'
+              example:
+                accessToken: eyJhbGciOiJIUzI1NiIsInkpXV.jNDA4NmU1MjFmMCIsInJvbGVkZW50IiwiaXNataliaaXJzdExvZ2luIjp0cnSuperQiOjE2NjA5Mjg4ODMsImV4cCI6MWomanzMjQ4M30.gn_hJqB9zVi5Ux5oRu22hGQ9W4z2njkdnx
+        401:
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/Error'
+              examples:
+                incorrect-credentials:
+                  value:
+                    status: 401
+                    code: 'INCORRECT_CREDENTIALS'
+                    message: 'The password or email you entered is incorrect.'
+                email-not-confirmed:
+                  value:
+                    status: 401
+                    code: 'EMAIL_NOT_CONFIRMED'
+                    message: 'Please confirm your email to login.'
+  /auth/logout:
+    post:
+      tags:
+        - Auth
+      summary: Logs the current user out
+      description: Logs the current user out, deletes a refresh token from the DB and clears cookie.
+      produces:
+        - application/json
+      parameters:
+        - name: Cookie
+          in: header
+          required: true
+          description: Refresh Token
+          type: string
+      responses:
+        204:
+          description: No Content
+  /auth/forgot-password:
+    post:
+      tags:
+        - Auth
+      summary: Sends an email with a reset link
+      description: Saves a generated reset token to the DB and sends an email to a user with a reset link.
+      produces:
+        - application/json
+      requestBody:
+        required: true
+        description: Provide required data to reset a password.
+        content:
+          application/json:
+            schema:
+              $ref: '#/definitions/forgotPassword'
+            example:
+              email: johndoe@gmail.com
+      responses:
+        204:
+          description: No Content
+        400:
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/Error'
+              example:
+                status: 400
+                code: 'EMAIL_NOT_SENT'
+                message: 'Email has not been sent.'
+        404:
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/Error'
+              example:
+                status: 404
+                code: 'USER_NOT_FOUND'
+                message: 'User with the specified email was not found.'
+  /auth/reset-password/{token}:
+    patch:
+      tags:
+        - Auth
+      summary: Updates a password to a new one
+      description: Receives a reset token, validates it and updates user password.
+      produces:
+        - application/json
+      parameters:
+        - name: token
+          in: path
+          required: true
+          description: Reset Token
+          type: string
+      requestBody:
+        required: true
+        description: Provide required data to update a password.
+        content:
+          application/json:
+            schema:
+              $ref: '#/definitions/resetPassword'
+            example:
+              password: smth12345
+      responses:
+        204:
+          description: No Content
+        400:
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/Error'
+              example:
+                status: 400
+                code: 'BAD_RESET_TOKEN'
+                message: 'The reset token is either invalid or has expired.'
+  /auth/confirm-email/{token}:
+    get:
+      tags:
+        - Auth
+      summary: Confirms user email
+      description: Receives a confirmation token, validates it and confirms user email.
+      produces:
+        - application/json
+      parameters:
+        - name: token
+          in: path
+          required: true
+          description: Confirmation Token
+          type: string
+      responses:
+        204:
+          description: No Content
+        400:
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/Error'
+              examples:
+                bad-confirm-token:
+                  value:
+                    status: 400
+                    code: 'BAD_CONFIRM_TOKEN'
+                    message: 'The confirm token is either invalid or has expired.'
+                email-already-confirmed:
+                  value:
+                    status: 400
+                    code: 'EMAIL_ALREADY_CONFIRMED'
+                    message: 'User email has been already confirmed.'
+  /auth/refresh:
+    get:
+      tags:
+        - Auth
+      summary: Refresh access token
+      description: Takes refresh token from cookies and retrieve a new access token.
+      produces:
+        - application/json
+      parameters:
+        - name: Cookie
+          in: header
+          required: true
+          description: Refresh Token
+          type: string
+      responses:
+        200:
+          description: OK
+          headers:
+            Set-Cookie:
+              schema:
+                type: string
+                example: refreshToken=eyJhbGciOiJIUzI1NiIpXV.0IiwiaXNatalXluIjE2NjA5Mjg4ODMsImV4cCI6MWomanzMjQ4M30.gn_hJqB9zVi5Ux5oRu22hGQ9W4z2njkdnx4O; Max-Age=86400; Domain=s2s-back-stage.azurewebsites.net; Path=/; Expires=Sat, 20 Aug 2022 17:32:57 GMT; HttpOnly; Secure; SameSite=None
+          content:
+            application/json:
+              schema:
+                $ref: '#/definitions/accessToken'
+              example:
+                accessToken: eyJhbGciOiJIUzI1NiIsInRIkpXV.jRmMDFjNDA4NmU1MjFmMCIiO50IiwiaXNataliaaXJzdExvZ2luIjp0cnSuperQiOjE2NjA5Mjg4ODMsImV4cCI6MWomanz.gn_hJqB9zVi5Ux5oRu22hGQ9W4z2njkdnx4Od8NXeDM
+        400:
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/Error'
+              example:
+                status: 400
+                code: 'BAD_REFRESH_TOKEN'
+                message: 'The refresh token is either invalid or has expired.'

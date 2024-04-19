@@ -1,0 +1,190 @@
+definitions:
+  offers:
+    type: array
+    items:
+      type: object
+      properties:
+        _id:
+          type: string
+        price:
+          type: number
+        proficiencyLevel:
+          type: array
+          items:
+            type: string
+            enum:
+              - Beginner
+              - Intermediate
+              - Advanced
+              - Test Preparation
+              - Professional
+              - Specialized
+        title:
+          type: string
+        description:
+          type: string
+        languages:
+          type: array
+          items:
+            type: string
+            enum:
+              - English
+              - Ukrainian
+              - Polish
+              - German
+              - French
+              - Spanish
+              - Arabic
+        authorRole:
+          type: string
+        author:
+          type: string
+          ref: '#components/user'
+        subject:
+          type: string
+          ref: '#components/subject'
+        category:
+          type: string
+          ref: '#components/category'
+        status:
+          type: string
+          enum:
+            - active
+            - draft
+            - closed
+        FAQ:
+          type: array
+          items:
+            type: object
+            properties:
+              question:
+                type: string
+              answer:
+                type: string
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+  offerBody:
+    type: object
+    properties:
+      price:
+        type: number
+      proficiencyLevel:
+        type: array
+        items:
+          type: string
+          enum:
+            - Beginner
+            - Intermediate
+            - Advanced
+            - Test Preparation
+            - Professional
+            - Specialized
+      title:
+        type: string
+      description:
+        type: string
+      languages:
+        type: array
+        items:
+          type: string
+          enum:
+            - English
+            - Ukrainian
+            - Polish
+            - German
+            - French
+            - Spanish
+            - Arabic
+      authorRole:
+        type: string
+      subject:
+        type: string
+        ref: '#components/subject'
+      category:
+        type: string
+        ref: '#components/category'
+      status:
+        type: string
+        enum:
+          - active
+          - draft
+          - closed
+      FAQ:
+        type: array
+        items:
+          type: object
+          properties:
+            question:
+              type: string
+            answer:
+              type: string
+  offer:
+    type: object
+    properties:
+      _id:
+        type: string
+      price:
+        type: number
+      proficiencyLevel:
+        type: array
+        items:
+          type: string
+          enum:
+            - Beginner
+            - Intermediate
+            - Advanced
+            - Test Preparation
+            - Professional
+            - Specialized
+      title:
+        type: string
+      description:
+        type: string
+      languages:
+        type: array
+        items:
+          type: string
+          enum:
+            - English
+            - Ukrainian
+            - Polish
+            - German
+            - French
+            - Spanish
+            - Arabic
+      authorRole:
+        type: string
+      author:
+        type: string
+        ref: '#components/user'
+      subject:
+        type: string
+        ref: '#components/subject'
+      category:
+        type: string
+        ref: '#components/category'
+      status:
+        type: string
+        enum:
+          - active
+          - draft
+          - closed
+      FAQ:
+        type: array
+        items:
+          type: object
+          properties:
+            question:
+              type: string
+            answer:
+              type: string
+      createdAt:
+        type: string
+        format: date-time
+      updatedAt:
+        type: string
+        format: date-time

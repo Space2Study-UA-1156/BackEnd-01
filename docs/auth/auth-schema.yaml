@@ -1,0 +1,44 @@
+definitions:
+  signup:
+    type: object
+    properties:
+      role:
+        type: string
+        enum: [student, tutor]
+      firstName:
+        type: string
+      lastName:
+        type: string
+      email:
+        type: string
+      password:
+        type: string
+  login:
+    type: object
+    properties:
+      email:
+        type: string
+      password:
+        type: string
+  signupResponse:
+    type: object
+    properties:
+      userId:
+        type: string
+      userEmail:
+        type: string
+  accessToken:
+    type: object
+    properties:
+      accessToken:
+        type: string
+  forgotPassword:
+    type: object
+    properties:
+      email:
+        type: string
+  resetPassword:
+    type: object
+    properties:
+      password:
+        type: string

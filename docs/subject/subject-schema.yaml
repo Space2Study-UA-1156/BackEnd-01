@@ -1,0 +1,61 @@
+definitions:
+  subjects:
+    type: array
+    items:
+      type: object
+      properties:
+        _id:
+          type: string
+        name:
+          type: string
+        category:
+          type: string
+          $ref: '#/components/category'
+        totalOffers:
+          type: object
+          properties:
+            student:
+              type: number
+              default: 0
+            tutor:
+              type: number
+              default: 0
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+  subjectBody:
+    type: object
+    properties:
+      name:
+        type: string
+      category:
+        type: string
+        $ref: '#/components/category'
+  subject:
+    type: object
+    properties:
+      _id:
+        type: string
+      name:
+        type: string
+      category:
+        type: string
+        $ref: '#/components/category'
+      totalOffers:
+        type: object
+        properties:
+          student:
+            type: number
+            default: 0
+          tutor:
+            type: number
+            default: 0
+      createdAt:
+        type: string
+        format: date-time
+      updatedAt:
+        type: string
+        format: date-time
