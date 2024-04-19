@@ -1,15 +1,14 @@
-# Space2Study-BackEnd-mvp
-<a href="https://softserve.academy/"><img src="https://github.com/ita-social-projects/Space2Study-BackEnd-mvp/blob/main/photo.jpg" title="SoftServe IT Academy" alt="SoftServe IT Academy"></a>
+# Space2Study-node-BackEnd-mvp
+
+<a href="https://softserve.academy/"><img src="https://github.com/ita-social-projects/SpaceToStudy-Client/blob/main/photo2.jpg" title="SoftServe IT Academy" alt="SoftServe IT Academy"></a>
 
 # SpaceToStudy project
 
 SpaceToStudy project is a platform where experts in various fields share their knowledge and students can learn from the best. Here you can find the proper training course, find a tutor, or find students and receive feedback from them.
 
-
-[![GitHub issues](https://img.shields.io/github/issues/ita-social-projects/Space2Study-BackEnd-mvp)](https://github.com/ita-social-projects/Space2Study-BackEnd-mvp/issues)
-[![Pending Pull-Requests](https://img.shields.io/github/issues-pr/ita-social-projects/Space2Study-BackEnd-mvp?style=flat-square)](https://github.com/ita-social-projects/Space2Study-BackEnd-mvp/pulls)
-[![GitHub license](https://img.shields.io/github/license/ita-social-projects/Space2Study-BackEnd-mvp)](https://github.com/ita-social-projects/Space2Study-BackEnd-mvp/blob/main/LICENSE)
-[![GitHub release (latest by date)](https://img.shields.io/github/v/release/horondi/horondi_client_fe)](https://s2s-front-stage.azurewebsites.net/)
+[![GitHub issues](insert your link here)]
+[![Pending Pull-Requests](insert your link here)]
+[![GitHub license](insert your link here)]
 
 ---
 
@@ -23,14 +22,16 @@ SpaceToStudy project is a platform where experts in various fields share their k
 - [Documentation](#Documentation)
   - [Rules and guidelines](#Rules-and-guidelines)
   - [Testing](#Testing)
-  - [Generator](#Generator)
 - [Project deploy](#project-deploy)
 - [Contributing](#contributing)
   - [git flow](#git-flow)
   - [issue flow](#git-flow)
-- [Teams](#teams) 
-  - [Development team](#development-team) 
-  - [DevOps team](#devops-team)  
+- [Teams](#teams)
+  - [Development team](#development-team)
+  - [DevOps team](#devops-team)
+  - [Designer team](#designer-team)
+  - [BA team](#ba-team)
+  - [QC team](#qc-team)
 - [FAQ](#faq)
 - [Support](#support)
 - [License](#license)
@@ -47,7 +48,7 @@ SpaceToStudy project is a platform where experts in various fields share their k
 
 ### Clone
 
-- Clone this repo to your local machine using `https://github.com/ita-social-projects/Space2Study-BackEnd-mvp.git`
+- Clone this repo to your local machine from this repository
 
 ### Setup
 
@@ -60,19 +61,16 @@ $ npm install
 ### How to run local
 
 1. Open terminal.
-2. Run `npm run start` to start application.<sup>[*](#footnote)</sup>
+2. Run `npm run start` to start application.<sup>[\*](#footnote)</sup>
 3. Open http://localhost:3000 to view it in the browser.
 
-###### <a name="footnote">*</a> - to run the project you need an `.env` file in root folder
-
+###### <a name="footnote">\*</a> - to run the project you need an `.env` file in root folder
 
 ## Usage
 
 ### How to run tests
 
 To run unit test open terminal and run `npm run test` in it.
-To run E2E tests you need open terminal and run `npm run start` in it to start server.
-Then open one more terminal and run `npm run cypress`.
 
 ---
 
@@ -124,33 +122,33 @@ Then open one more terminal and run `npm run cypress`.
 
 ### Testing
 
- - Tests are implemented in the format of contract tests. We test actual GraphQL operations like queries, mutations, or subscriptions on the running application.
-    For testing, we should use a database that is running as a container locally.
-    We should have a folder per entity with tests.
-  - Test files:
+- Tests are implemented in the format of contract tests. We test services, controllers, middlewares, utils or subscriptions on the running application.
+  For testing, we should use a database that is running as a container locally.
+  We should have a folder per entity with tests.
+- Test files:
 
-    - {entityName}.queries.spec.js - Testing the queries (if it exists)
-    - {entityName}.mutations.spec.js - Testing the mutations (if it exists)
-    - {entityName}.subscriptions.spec.js - Testing the subscriptions (if it exists)
+  - {entityName}.spec.js - Testing the queries (if it exists)
+  - {middlewareName}.spec.js - Testing the mutations (if it exists)
+  - {functionName}.spec.js - Testing the subscriptions (if it exists)
 
-  - Testing guides:
-    1.  All fields in data from the response from the backend should be checked for the appropriate value.
-    2.  If you cannot test some field for some particular value you should at least check its existence and its type.
-    3.  We should test the validation of the provided data to ensure that the backend performs validation by sending different combinations of valid and invalid data.
-    4.  Group tests for each operation (query, mutation, or subscription) to describe the statement.
-        Content (base scenario, for some operations we can have additional scenarios):
-        - describe(‘Validation’) with tests that validate a particular operation with combinations of valid and invalid data.
-        - describe(‘Success business logic’) with tests that perform operations with valid data and ensures that valid flows work
-    5.  Tests should be executed before any commit and don’t allow to push code if tests are failing.
-    6.  We need to develop utility functions that we can reuse in many tests files for creating user and base authentication (obtaining JWT token) for future performing operations that require authorization
-  - Libraries
-    - vitest - testing framework
-    - apollo-boost - client for performing GraphQL operations
+- Testing guides:
+  1.  All fields in data from the response from the backend should be checked for the appropriate value.
+  2.  If you cannot test some field for some particular value you should at least check its existence and its type.
+  3.  We should test the validation of the provided data to ensure that the backend performs validation by sending different combinations of valid and invalid data.
+  4.  Group tests for each operation (query, mutation, or subscription) to describe the statement.
+      Content (base scenario, for some operations we can have additional scenarios):
+      - describe(‘Validation’) with tests that validate a particular operation with combinations of valid and invalid data.
+      - describe(‘Success business logic’) with tests that perform operations with valid data and ensures that valid flows work
+  5.  Tests should be executed before any commit and don’t allow to push code if tests are failing.
+  6.  We need to develop utility functions that we can reuse in many tests files for creating user and base authentication (obtaining JWT token) for future performing operations that require authorization
+- Libraries
+
+  - vitest - testing framework
 
 - Runtime work
   - Locally application is running in docker container. We have two docker
     containers: `api` container and `database` container.
-    
+
 #### Components
 
 Order of testing components:
@@ -166,7 +164,9 @@ Order of testing components:
 - constants
 - static css styles
 - related components (test only one specific component at the specific moment of time)
+
 ##### How to test:
+
 - testing using snapshots (actual ui)
 - testing logic of component (dynamic)
 
@@ -187,62 +187,15 @@ It is appropriate for presentational components but doesn’t cover any logic
 - with parameters or custom props
 - without arguments
 
-#### Sagas
-
-Flow:
-
-- Set up the conditions of our test
-- Mock the actual HTTP requests
-- Instruct the saga to run through everything and finish its business
-- Check that the expected side effects have happened (actions are dispatched, selectors are called, etc)
-
-Link to the full article about proper saga testing: https://dev.to/phil/the-best-way-to-test-redux-sagas-4hib#:~:text=To%20test%20that%20the%20saga,selector%20into%20the%20following%20gen.
-
-#### Actions creators
-
-We test action creators as simple pure functions that just take an arguments and output proper arguments
-
-#### Reducers
-
-We test reducers as simple pure functions that just take an arguments and output proper arguments
-Checks:
-
-- valid default state
-- changes of state when action is dispatched for different values of state
-
-#### Cypress
-
-1. Use `data-cy` as selector
-
----
-
-### Generator
-
-Command `npm run generate` is used to run [graphql code generator](https://graphql-code-generator.com)
-
-1. before using codegen you must run backend server [SpaceToStudy backend](https://github.com/ita-social-projects/Space2Study-BackEnd-mvp)
-
-2. open terminal
-
-3. run `npm run generate`
-
-4. you should run `npm run generate` every time new unions or interfaces are created
-
----
-
-## Project Deploy
-
-#### Deploy Сlient part: https://s2s-front-stage.azurewebsites.net/
-
 ---
 
 ## Contributing
 
-You're encouraged to contribute to our project if you've found any issues or missing functionality that you would want to see. Here you can see [the list of issues](https://github.com/ita-social-projects/Space2Study-BackEnd-mvp/issues) and here you can create [a new issue](https://github.com/ita-social-projects/Space2Study-BackEnd-mvp/issues/new/choose).
+You're encouraged to contribute to our project if you've found any issues or missing functionality that you would want to see. You can add it to 'Issues' in Issue tab and after that click on 'New issue' Here you can see the list of issues in issue tab and here you can create a new issue after clicking on 'New Issue'.
 
 Before sending any pull request, please discuss requirements/changes to be implemented using an existing issue or by creating a new one. All pull requests should be done into `develop` branch.
 
-There are three GitHub projects: [SpaceToStudy-Client](https://github.com/ita-social-projects/Space2Study-Client-mvp) for frontend part, [SpaceToStudy-BackEnd](https://github.com/ita-social-projects/Space2Study-BackEnd-mvp/pulls) for backend part and admin part is currently under development. Every project has it's own issues.
+There are two GitHub projects: [SpaceToStudy-Client] for frontend part and admin part, [SpaceToStudy-BackEnd] for backend part. Every project has it's own issues.
 
 Every pull request should be linked to an issue. So if you make changes on frontend, backend or admin parts you should create an issue with a link to corresponding requirement (story, task or epic).
 
@@ -254,7 +207,7 @@ e.g. #020-createAdminPanel
 ### Git flow
 
 We have **main** , **develop** and **feature** branches.  
-All **feature** branches must be merged into [develop](https://github.com/ita-social-projects/Space2Study-BackEnd-mvp/tree/develop) branch!!!
+All **feature** branches must be merged into [develop](https://github.com/ita-social-projects/Space2Study-node-BackEnd-mvp/tree/develop) branch!!!
 Only the release should merge into the main branch!!!
 
 ![Github flow](<https://wac-cdn.atlassian.com/dam/jcr:b5259cce-6245-49f2-b89b-9871f9ee3fa4/03%20(2).svg?cdnVersion=1312>)
@@ -263,7 +216,7 @@ Only the release should merge into the main branch!!!
 
 - **Option 1**
 
-  - 👯 Clone this repo to your local machine using `https://github.com/ita-social-projects/Space2Study-BackEnd-mvp.git`
+  - 👯 Clone this repo to your local machine from this repository
 
 - **Option 2**
 
@@ -275,7 +228,7 @@ Only the release should merge into the main branch!!!
 
 #### Step 3
 
-- 🔃 Create a new pull request using <a href="https://github.com/ita-social-projects/Space2Study-BackEnd-mvp/compare/" target="_blank">github.com/ita-social-projects/Space2Study-BackEnd-mvp</a>.
+- 🔃 Create a new pull request in this repository.
 
 ---
 
@@ -283,16 +236,46 @@ Only the release should merge into the main branch!!!
 
 #### Step 1
 
-[![@KhrystynaPavlikovska](https://avatars.githubusercontent.com/u/34419998?s=400&u=15346304d164fb346cc2671a7d33052d2a6324e2&v=4)](https://github.com/KhrystynaPavlikovska)
-[![@Roman-Peretiatko](https://avatars.githubusercontent.com/u/79856961?v=4)](https://github.com/Roman-Peretiatko)
-[![@mxrcury](https://user-images.githubusercontent.com/34419998/222748150-75fae7f1-e219-48f6-a225-8f91f9cbbbd3.png)](https://github.com/mxrcury)
-[![@tsivkadi](https://user-images.githubusercontent.com/34419998/222748492-37a29d91-8acc-4319-8402-52ec5fbaa57a.png)](https://github.com/tsivkadi)
-[![@FryDay969](https://avatars.githubusercontent.com/u/39992977?v=4)](https://github.com/FryDay969)
+- go to [issues] and click `New issue` button
 
+#### Step 2
+
+- when creating [issue] you should add name of the issue, description, choose assignee, label, project. If issue is a `User Story` you should link it with corresponding tasks, and corresponding tasks should be linked to issue.
+
+#### Step 3
+
+- if issue is in work it should be placed in proper column on dashboard according to its status.
+
+---
+
+## Teams
+
+### Development team
+
+[![@Tolik170](https://avatars.githubusercontent.com/u/63456632?v=4)](https://github.com/Tolik170)
+[![@Mav-Ivan](https://avatars.githubusercontent.com/u/110425368?v=4)](https://github.com/Mav-Ivan)
+[![@dmtrth25](https://avatars.githubusercontent.com/u/56305508?v=4)](https://github.com/dmtrth25)
+[![@abalanovsky](https://avatars.githubusercontent.com/u/108689551?v=4)](https://github.com/abalanovsky)
+[![@OlyaKorchan](https://avatars.githubusercontent.com/u/17857767?v=4)](https://github.com/OlyaKorchan)
+[![@Marichka0406](https://avatars.githubusercontent.com/u/121502737?v=4)](https://github.com/Marichka0406)
 
 ### DevOps team
 
 [![@abohatyrov](https://avatars.githubusercontent.com/u/52012169?v=4)](https://github.com/abohatyrov)
+[![@bdeputat](https://avatars.githubusercontent.com/u/36072762?v=4)](https://github.com/bdeputat)
+
+### Designer team
+
+[![@Nastia197](https://avatars.githubusercontent.com/u/76164279?v=4)](https://github.com/Nastia197)
+
+### BA team
+
+[![@IvannaSW](https://avatars.githubusercontent.com/u/24367409?v=4)](https://github.com/IvannaSW)
+
+### QC team
+
+[![@AntonOkun](https://avatars.githubusercontent.com/u/129941062?v=4)](https://github.com/AntonOkun)
+[![@Valent1n0o](https://avatars.githubusercontent.com/u/118978192?v=4)](https://github.com/Valent1n0o)
 
 ---
 
