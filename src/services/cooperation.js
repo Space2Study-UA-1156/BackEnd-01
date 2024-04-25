@@ -34,7 +34,7 @@ const cooperationService = {
 
     const cooperation = await Cooperation.findById(id)
 
-    if (price && status) {
+    if (price !== undefined && status !== undefined) {
       throw createForbiddenError();
     }
 
