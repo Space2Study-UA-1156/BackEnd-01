@@ -84,7 +84,7 @@ const offerSchema = new Schema(
 offerSchema.statics.calcTotalOffers = async function (category, subject, authorRole) {
   const categoryTotalOffersQty = await this.countDocuments({ authorRole })
   await Category.findByIdAndUpdate(category, { $set: { [`totalOffers.${authorRole}`]: categoryTotalOffersQty } }).exec()
-  const subjectTotalOffersQty = await this.countDocuments({ subject })
+  const subjectTotalOffersQty = await this.countDocuments({ subject, authorRole })
   await Subject.findByIdAndUpdate(subject, { $set: { [`totalOffers.${authorRole}`]: subjectTotalOffersQty } }).exec()
 }
 
