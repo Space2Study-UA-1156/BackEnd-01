@@ -13,7 +13,7 @@ const offerSchema = new Schema(
       type: Number
     },
     proficiencyLevel: {
-      type: String,
+      type: [String],
       enum: {
         values: PROFICIENCY_LEVEL_ENUM,
         message: ENUM_CAN_BE_ONE_OF('proficiency level', PROFICIENCY_LEVEL_ENUM)
