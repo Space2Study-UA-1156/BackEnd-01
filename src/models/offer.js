@@ -92,4 +92,8 @@ offerSchema.post('save', async function (doc) {
   doc.constructor.calcTotalOffers(doc.category, doc.subject, doc.authorRole)
 })
 
+offerSchema.post('findOneAndRemove', async function (doc) {
+  doc.constructor.calcTotalOffers(doc.category, doc.subject, doc.authorRole)
+})
+
 module.exports = model(OFFER, offerSchema)
