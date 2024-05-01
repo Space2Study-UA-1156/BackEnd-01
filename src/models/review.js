@@ -101,12 +101,13 @@ reviewSchema.statics.calcAverageRatings = async function (targetUserId, targetUs
   ])
 
   if (stats.length) {
-    const tutor = {
-      'totalReviews.tutor': stats[0].totalReviews.tutor,
-      'averageRating.tutor': stats[0].averageRating.tutor
-    }
-
-    await userSchema.findOneAndUpdate({ _id: targetUserId, role: targetUserRole }, targetUserRole === tutor)
+    await userSchema.findOneAndUpdate(
+      { _id: targetUserId, role: targetUserRole },
+      {
+        [`totalReviews.${targetUserRole}`]: stats[0].totalReviews[targetUserRole],
+        [`averageRating.${targetUserRole}`]: stats[0].averageRating[targetUserRole]
+      }
+    )
   } else {
     await userSchema.findOneAndUpdate(
       { _id: targetUserId, role: targetUserRole },
