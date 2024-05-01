@@ -34,6 +34,10 @@ const cooperationService = {
 
     const cooperation = await Cooperation.findById(id)
 
+    if (price !== undefined && status !== undefined) {
+      throw createForbiddenError();
+    }
+
     if (price) {
       if (currentUserRole !== cooperation.needAction) {
         throw createForbiddenError()
