@@ -1,35 +1,39 @@
 definitions:
   categories:
-    type: array
-    items:
-      type: object
-      properties:
-        _id:
-          type: string
-        name:
-          type: string
-        appearance:
-          type: object
-          properties:
-            icon:
-              type: string
-            color:
-              type: string
-        totalOffers:
-          type: object
-          properties:
-            student:
-              type: number
-              default: 0
-            tutor:
-              type: number
-              default: 0
-        createdAt:
-          type: string
-          format: date-time
-        updatedAt:
-          type: string
-          format: date-time
+    type: object
+    properties:
+      items:
+        type: object
+        properties:
+          _id:
+            type: string
+          name:
+            type: string
+          appearance:
+            type: object
+            properties:
+              icon:
+                type: string
+              color:
+                type: string
+          totalOffers:
+            type: object
+            properties:
+              student:
+                type: number
+                default: 0
+              tutor:
+                type: number
+                default: 0
+          createdAt:
+            type: string
+            format: date-time
+          updatedAt:
+            type: string
+            format: date-time
+      count:
+        type: number
+        default: 0
   categoryBody:
     type: object
     properties:
