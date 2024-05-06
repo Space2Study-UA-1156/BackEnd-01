@@ -1,0 +1,25 @@
+paths:
+  /languages:
+    get:
+      tags:
+        - Languages
+      summary: Find all languages
+      description: Finds and returns a list of languages
+      produces:
+        - application/json
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/definitions/languages'
+              example:
+                - English
+                - Ukrainian
+                - Polish
+                - German
+                - French
+                - Spanish
+                - Arabic
+
