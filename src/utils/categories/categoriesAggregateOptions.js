@@ -34,7 +34,7 @@ const categoriesAggregateOptions = (query) => {
     },
     {
       $facet: {
-        items: [{ $skip: Number(skip) }, { $limit: Number(limit) }],
+        items: [{ $skip: 0 }, { $limit: Number(limit) }],
         count: [{ $count: 'count' }]
       }
     },
