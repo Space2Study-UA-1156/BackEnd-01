@@ -29,7 +29,7 @@ let offerBody = {
   languages: ['Ukrainian'],
   category: {
     _id: '',
-    appearance: { icon: 'mocked-path-to-icon', color: '#66C42C' }
+    appearance: { path: 'mocked-path-to-icon', color: '#66C42C' }
   }
 }
 let subjectBody = {

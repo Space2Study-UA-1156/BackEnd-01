@@ -9,14 +9,14 @@ const categorySchema = new Schema(
       unique: true,
       required: [true, errors.FIELD_IS_NOT_DEFINED('name').message]
     },
-    categoryIcon: {
+    appearance: {
       path: {
         type: String,
-        required: [true, errors.FIELD_IS_NOT_DEFINED('categoryIcon.icon').message]
+        required: [true, errors.FIELD_IS_NOT_DEFINED('appearance.path').message]
       },
       color: {
         type: String,
-        required: [true, errors.FIELD_IS_NOT_DEFINED('categoryIcon.color').message]
+        required: [true, errors.FIELD_IS_NOT_DEFINED('appearance.color').message]
       }
     },
     totalOffers: {

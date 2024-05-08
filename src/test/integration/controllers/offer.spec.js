@@ -21,7 +21,7 @@ let testOffer = {
   subject: '',
   category: {
     _id: '',
-    appearance: { icon: 'mocked-path-to-icon', color: '#66C42C' }
+    appearance: { path: 'mocked-path-to-icon', color: '#66C42C' }
   }
 }
 
