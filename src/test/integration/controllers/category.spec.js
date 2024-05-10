@@ -14,7 +14,7 @@ let categoryResponse
 
 let categoryBody = {
   name: 'Languages',
-  appearance: { icon: 'mocked-path-to-icon', color: '#66C42C' }
+  appearance: { path: 'mocked-path-to-icon', color: '#66C42C' }
 }
 
 const subjectBody = [

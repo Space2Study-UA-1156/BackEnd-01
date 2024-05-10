@@ -73,7 +73,7 @@ describe('Cooperation controller', () => {
     const category = await Category.create({
       name: 'Dark Magic',
       appearance: {
-        icon: 'path-to-icon',
+        path: 'path-to-icon',
         color: '#66C42C'
       }
     })
