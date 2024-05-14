@@ -38,8 +38,9 @@ const updateOffer = async (req, res) => {
 
 const deleteOffer = async (req, res) => {
   const { id } = req.params
+  const { id: currentUserId } = req.user
 
-  await offerService.deleteOffer(id)
+  await offerService.deleteOffer(id, currentUserId)
 
   res.status(204).end()
 }
