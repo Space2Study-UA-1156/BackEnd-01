@@ -3,6 +3,13 @@ const getRegex = require('~/utils/getRegex')
 const categoriesAggregateOptions = (query) => {
   const { limit = 100, name = '', skip = 0 } = query
 
+  const matchStage = {
+    $match: {
+      name: getRegex(name),
+      subjects: { $exists: true, $ne: [] }
+    }
+  }
+
   return [
     {
       $lookup: {
@@ -12,30 +19,16 @@ const categoriesAggregateOptions = (query) => {
         as: 'subjects'
       }
     },
-    {
-      $match: {
-        name: getRegex(name),
-        subjects: { $exists: true, $ne: [] }
-      }
-    },
-    {
-      $sort: { totalOffers: -1, updatedAt: -1 }
-    },
-    {
-      $skip: parseInt(skip)
-    },
-    {
-      $limit: parseInt(limit)
-    },
-    {
-      $project: {
-        subjects: 0
-      }
-    },
+    matchStage,
     {
       $facet: {
-        items: [{ $skip: 0 }, { $limit: Number(limit) }],
-        count: [{ $count: 'count' }]
+        items: [
+          { $sort: { totalOffers: -1, updatedAt: -1 } },
+          { $skip: parseInt(skip) },
+          { $limit: parseInt(limit) },
+          { $project: { subjects: 0 } }
+        ],
+        count: [matchStage, { $count: 'count' }]
       }
     },
     {
