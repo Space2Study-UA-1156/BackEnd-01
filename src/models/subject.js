@@ -6,7 +6,6 @@ const subjectSchema = new Schema(
   {
     name: {
       type: String,
-      unique: true,
       required: [true, FIELD_CANNOT_BE_EMPTY('name')],
       trim: true
     },
@@ -29,6 +28,6 @@ const subjectSchema = new Schema(
   { timestamps: true, versionKey: false }
 )
 
-subjectSchema.index({ name: 1 }, { unique: true })
+subjectSchema.index({ name: 1, category: 1 }, { unique: true })
 
 module.exports = model(SUBJECT, subjectSchema)
