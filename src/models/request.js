@@ -20,23 +20,12 @@ const requestSchema = new Schema(
     categoryId: {
       type: Schema.Types.ObjectId,
       ref: CATEGORY,
-      default: null,
-      required: [
-        function () {
-          return !this.categoryName
-        },
-        FIELD_CANNOT_BE_EMPTY('categoryId')
-      ]
+      default: null
     },
     categoryName: {
       type: String,
       default: '',
-      required: [
-        function () {
-          return !this.categoryId
-        },
-        FIELD_CANNOT_BE_EMPTY('categoryName')
-      ]
+      required: [true, FIELD_CANNOT_BE_EMPTY('categoryName')]
     },
     information: {
       type: String,
