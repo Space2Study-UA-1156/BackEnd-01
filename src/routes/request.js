@@ -21,5 +21,6 @@ router.get('/', asyncWrapper(requestController.getRequests))
 router.post('/', isEntityValid({ body }), asyncWrapper(requestController.createRequest))
 router.get('/:id', isEntityValid({ params }), asyncWrapper(requestController.getRequestById))
 router.delete('/:id', isEntityValid({ params }), asyncWrapper(requestController.deleteRequest))
+router.patch('/:id', isEntityValid({ params }), asyncWrapper(requestController.updateRequest))
 
 module.exports = router

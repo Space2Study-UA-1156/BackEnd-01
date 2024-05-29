@@ -36,4 +36,14 @@ const deleteRequest = async (req, res) => {
   res.status(204).end()
 }
 
-module.exports = { getRequests, getRequestById, createRequest, deleteRequest }
+const updateRequest = async (req, res) => {
+  const { id } = req.params
+  const { id: userId } = req.user
+  const updateData = req.body
+
+  await requestService.updateRequest(id, userId, updateData)
+
+  res.status(204).end()
+}
+
+module.exports = { getRequests, getRequestById, createRequest, deleteRequest, updateRequest }
