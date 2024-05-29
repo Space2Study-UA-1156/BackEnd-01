@@ -10,7 +10,11 @@ const categoryService = require('~/services/category')
 const getRequests = async (skip, limit, role, userId) => {
   const searchFilter = MAIN_ROLE_ENUM.includes(role) ? { author: userId } : {}
 
-  const requests = await Request.find(searchFilter).skip(skip).limit(limit).exec()
+  const requests = await Request.find(searchFilter)
+    .skip(skip)
+    .limit(limit)
+    .populate('author', 'firstName lastName photo')
+    .exec()
   const count = await Request.countDocuments(searchFilter)
 
   return {
@@ -20,7 +24,9 @@ const getRequests = async (skip, limit, role, userId) => {
 }
 
 const getRequestById = async (id, userId) => {
-  const request = await Request.findOne({ _id: id, author: userId }).exec()
+  const request = await Request.findOne({ _id: id, author: userId })
+    .populate('author', 'firstName lastName photo')
+    .exec()
 
   if (!request) {
     throw createError(404, DOCUMENT_NOT_FOUND(REQUEST))
