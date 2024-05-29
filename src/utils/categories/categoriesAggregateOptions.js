@@ -1,12 +1,38 @@
 const getRegex = require('~/utils/getRegex')
 
 const categoriesAggregateOptions = (query) => {
-  const { limit = 100, name = '', skip = 0 } = query
+  const {
+    limit = 100,
+    name = '',
+    skip = 0,
+    sort = 'createdAt'
+  } = query
 
   const matchStage = {
     $match: {
       name: getRegex(name),
       subjects: { $exists: true, $ne: [] }
+    }
+  }
+
+  let sortOption = {}
+
+  if (sort) {
+    try {
+      const parsedSort = JSON.parse(sort)
+      const { order, orderBy } = parsedSort
+      const sortOrder = order === 'asc' ? 1 : -1
+      sortOption = { [orderBy]: sortOrder }
+    } catch {
+      if (typeof sort === 'string') {
+        if (sort === 'totalOffersAsc') {
+          sortOption['totalOffersSum'] = 1
+        } else if (sort === 'totalOffersDesc') {
+          sortOption['totalOffersSum'] = -1
+        } else {
+          sortOption[sort] = -1
+        }
+      }
     }
   }
 
@@ -21,19 +47,36 @@ const categoriesAggregateOptions = (query) => {
     },
     matchStage,
     {
+      $addFields: {
+        totalOffersSum: { $add: ['$totalOffers.student', '$totalOffers.tutor'] }
+      }
+    },
+    {
       $facet: {
         items: [
-          { $sort: { totalOffers: -1, updatedAt: -1 } },
+          { $sort: sortOption },
           { $skip: parseInt(skip) },
-          { $limit: parseInt(limit) },
-          { $project: { subjects: 0 } }
+          { $limit: parseInt(limit) }
         ],
         count: [matchStage, { $count: 'count' }]
       }
     },
     {
       $project: {
-        items: 1,
+        items: {
+          $map: {
+            input: '$items',
+            as: 'item',
+            in: {
+              _id: '$$item._id',
+              name: '$$item.name',
+              appearance: '$$item.appearance',
+              totalOffers: '$$item.totalOffers',
+              createdAt: '$$item.createdAt',
+              updatedAt: '$$item.updatedAt'
+            }
+          }
+        },
         count: {
           $cond: {
             if: { $eq: ['$count', []] },
