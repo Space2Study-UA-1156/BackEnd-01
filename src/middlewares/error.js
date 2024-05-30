@@ -2,7 +2,8 @@ const {
   INTERNAL_SERVER_ERROR,
   DOCUMENT_ALREADY_EXISTS,
   MONGO_SERVER_ERROR,
-  VALIDATION_ERROR
+  VALIDATION_ERROR,
+  FIREBASE_ERROR
 } = require('~/consts/errors')
 const logger = require('~/logger/logger')
 const getUniqueFields = require('~/utils/getUniqueFields')
@@ -11,7 +12,7 @@ const errorMiddleware = (err, _req, res, _next) => {
   const { name, status, code, message } = err
   logger.error(err)
 
-  console.log(name, status, code, message)
+  console.log(message)
 
   const dataErrors = {
     MongoServerError: (message, statusCode) => {
@@ -35,9 +36,9 @@ const errorMiddleware = (err, _req, res, _next) => {
       })
     },
     FirebaseError: () => {
-      // TODO
       return res.status(400).json({
-        message: 'could not upload photo!'
+        status: 400,
+        ...FIREBASE_ERROR(message)
       })
     }
   }
