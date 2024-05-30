@@ -1,47 +1,25 @@
-const azureStorage = require('azure-storage')
-const {
-  azureAccess: { STORAGE_ACCOUNT, ACCESS_KEY, AZURE_HOST }
-} = require('~/configs/config')
-
-let blobService
+const { ref, uploadString, getDownloadURL, deleteObject, getStorage } = require('firebase/storage')
+const storage = require('~/initialization/firebaseStorage')
 
 const uploadService = {
-  uploadFile: (file, containerName) => {
-    blobService = azureStorage.createBlobService(STORAGE_ACCOUNT, ACCESS_KEY, AZURE_HOST)
+  uploadFile: async (file, containerName) => {
+    const metadata = {
+      contentType: file.type
+    }
 
-    const mainData = file.src.split(',')[1]
+    const name = `${Date.now()}-${file.name}`
+    const storageRef = ref(storage, `${containerName}/${name}`)
 
-    const buffer = Buffer.from(mainData, 'base64')
-    const blobName = `${Date.now()}-${file.name}`
+    const snapshot = await uploadString(storageRef, file.src, 'data_url', metadata)
+    const downloadURL = await getDownloadURL(snapshot.ref)
 
-    return new Promise((resolve, reject) => {
-      const stream = blobService.createWriteStreamToBlockBlob(containerName, blobName, (error) => {
-        if (error) {
-          reject(error)
-        } else {
-          resolve(blobName)
-        }
-      })
-
-      stream.on('error', (error) => {
-        reject(error)
-      })
-
-      stream.end(buffer)
-    })
+    return downloadURL
   },
 
-  deleteFile: (fileName, containerName) => {
-    blobService = azureStorage.createBlobService(STORAGE_ACCOUNT, ACCESS_KEY, AZURE_HOST)
-
-    return new Promise((resolve, reject) =>
-      blobService.deleteBlobIfExists(containerName, fileName, (err, res) => {
-        if (err) {
-          reject(err)
-        }
-        resolve(res)
-      })
-    ).catch((e) => e.message)
+  deleteFile: async (fileName) => {
+    const storage = getStorage()
+    const httpsReference = ref(storage, fileName)
+    await deleteObject(httpsReference)
   }
 }
 

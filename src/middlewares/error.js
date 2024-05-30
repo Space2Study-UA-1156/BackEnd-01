@@ -11,6 +11,8 @@ const errorMiddleware = (err, _req, res, _next) => {
   const { name, status, code, message } = err
   logger.error(err)
 
+  console.log(name, status, code, message)
+
   const dataErrors = {
     MongoServerError: (message, statusCode) => {
       if (statusCode === 11000) {
@@ -30,6 +32,12 @@ const errorMiddleware = (err, _req, res, _next) => {
       return res.status(409).json({
         status: 409,
         ...VALIDATION_ERROR(message)
+      })
+    },
+    FirebaseError: () => {
+      // TODO
+      return res.status(400).json({
+        message: 'could not upload photo!'
       })
     }
   }
