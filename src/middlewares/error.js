@@ -12,8 +12,6 @@ const errorMiddleware = (err, _req, res, _next) => {
   const { name, status, code, message } = err
   logger.error(err)
 
-  console.log(message)
-
   const dataErrors = {
     MongoServerError: (message, statusCode) => {
       if (statusCode === 11000) {
