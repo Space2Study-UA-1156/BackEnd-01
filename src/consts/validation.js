@@ -22,6 +22,7 @@ const enums = {
   COOPERATION_STATUS_ENUM: ['pending', 'active', 'declined', 'closed'],
   PARAMS_ENUM: ['id', 'categoryId', 'subjectId'],
   OFFER_STATUS_ENUM: ['active', 'draft', 'closed'],
+  REQUEST_STATUS_ENUM: ['pending', 'declined', 'approved'],
   NOTIFICATION_TYPE_ENUM: ['review', 'comment']
 }
 
