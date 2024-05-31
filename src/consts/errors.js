@@ -124,6 +124,10 @@ const errors = {
     code: 'MONGO_SERVER_ERROR',
     message: message
   }),
+  FIREBASE_ERROR: (message) => ({
+    code: 'FIREBASE_ERROR',
+    message
+  }),
   VALIDATION_ERROR: (message) => ({
     code: 'VALIDATION_ERROR',
     message: message

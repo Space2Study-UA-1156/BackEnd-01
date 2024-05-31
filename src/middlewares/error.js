@@ -2,7 +2,8 @@ const {
   INTERNAL_SERVER_ERROR,
   DOCUMENT_ALREADY_EXISTS,
   MONGO_SERVER_ERROR,
-  VALIDATION_ERROR
+  VALIDATION_ERROR,
+  FIREBASE_ERROR
 } = require('~/consts/errors')
 const logger = require('~/logger/logger')
 const getUniqueFields = require('~/utils/getUniqueFields')
@@ -30,6 +31,12 @@ const errorMiddleware = (err, _req, res, _next) => {
       return res.status(409).json({
         status: 409,
         ...VALIDATION_ERROR(message)
+      })
+    },
+    FirebaseError: () => {
+      return res.status(400).json({
+        status: 400,
+        ...FIREBASE_ERROR(message)
       })
     }
   }
